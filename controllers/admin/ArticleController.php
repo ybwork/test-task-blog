@@ -27,24 +27,7 @@ class ArticleController
 
     public function index()
     {
-        // var_dump($this->model); die();
-        /*
-            Заменить обычный вывод, когда появится js
-
-            $limit = 2;
-            $page = $this->helper->get_page();
-            $offset = ($page - 1) * $limit;
-
-            $count = $this->model->count();
-            $total = $count[0]['COUNT(*)'];
-            $index = '?page=';
-
-            $lots = $this->model->get_all_by_offset_limit($offset, $limit);
-
-            $this->paginator->set_params($total, $page, $limit, $index);
-        */
-
-        $lots = $this->model->get_all();
+        $articles = $this->model->get_all();
 
         require_once(ROOT . '/views/admin/article/index.php');
         return true;
@@ -77,5 +60,10 @@ class ArticleController
         
         $id = (int) $_POST['id'];
         $this->model->delete($id);
+    }
+
+    public function show()
+    {
+        return true;
     }
 }

@@ -14,7 +14,6 @@ define('ROOT', __DIR__);
 require_once(ROOT . '/components/RouterImp.php');
 require_once(ROOT . '/components/Autoload.php');
 
-// var_dump(password_hash('zxcvzxcv', PASSWORD_DEFAULT)); die();
 // Start router
 $router = new RouterImp();
 $router->run();

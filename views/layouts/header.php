@@ -10,16 +10,17 @@
     <title>Blog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="public/css/signin.css" rel="stylesheet">
+    <link href="public/css/app.css" rel="stylesheet">
   </head>
   <body class="bg-light grid-body">
     <?php if ($_SESSION): ?>
-      <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="/">Главная</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="admin/articles">Статьи</a>
+              <a class="nav-link" href="/admin/articles">Статьи</a>
             </li>
           </ul>
           <div>
