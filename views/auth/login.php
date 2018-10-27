@@ -1,23 +1,10 @@
 <?php require ROOT . '/views/layouts/header.php'; ?>
-	<div class="grid-body">
-		<div class="login-block" >
-			<div class="login-block-width">
-				<form class="auth" action="/login" method="POST">
-					<p class="error" style="display: none"></p>
-					<div class="login-field-group">
-		                <div class="login-notice"></div>
-		            </div>
-					<div class="login-field-group">
-						<img src="/public/image/icon/login/user.png">
-						<input type="text" name="login" placeholder="Логин" value="<?php isset($_SESSION['login']) ? print $_SESSION['login'] : '';  ?>">
-					</div>
-					<div class="login-field-group">
-						<img src="/public/image/icon/login/password.png">
-						<input type="password" name="password" placeholder="Пароль" value="<?php isset($_SESSION['password']) ? print $_SESSION['password'] : '';  ?>">
-					</div>
-					<button class="button button-color button-round button-login" type="submit" name="submit">Войти</button>
-				</form>
-			</div>
-		</div>
-	</div>
+	<form class="form-signin auth" action="/login" method="POST">
+		<div class="alert alert-danger" role="alert"></div>
+		<label for="inputLogin" class="sr-only">Логин</label>
+		<input type="login" id="inputLogin" class="form-control" placeholder="Логин" required="" autofocus="" value="<?php isset($_SESSION['login']) ? print $_SESSION['login'] : '';  ?>" name="login">
+		<label for="inputPassword" class="sr-only">Пароль</label>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="" value="<?php isset($_SESSION['password']) ? print $_SESSION['password'] : '';  ?>" name="password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+	</form>
 <?php require ROOT . '/views/layouts/footer.php'; ?>

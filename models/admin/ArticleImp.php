@@ -2,14 +2,11 @@
 
 namespace models\admin;
 
-use \components\Validator;
-use \components\Helper;
-use \components\DBConnection;
-use \implementing\validators\YBValidator;
-use \implementing\helpers\YBHelper;
-use \dbconnections\MySQLConnection;
 use \interfaces\models\admin\Article;
-use \implementing\models\ModelImp;
+use \components\ValidatorImp;
+use \components\HelperImp;
+use \components\DBConnectionImp;
+use \models\ModelImp;
 
 class ArticleImp extends ModelImp implements Article
 {
@@ -23,22 +20,18 @@ class ArticleImp extends ModelImp implements Article
 	
 	public function __construct()
 	{
-		$this->validator = new Validator();
-		$this->validator->set_validator(new YBValidator());
+		$this->validator = new ValidatorImp();
+		$this->db_connection = new DBConnectionImp();
 
-		$this->db_connection = new DBConnection();
-		$this->db_connection->set_connection(new MySQLConnection);
+		$this->table_name = 'articles';
 
-		$this->table_name = 'lots';
-
-		$this->fields = 'name, description, price';
-		$this->binding_fields_for_create = ':name, :description, :price';
-		$this->binding_fields_for_update = 'name = :name, description = :description, price = :price';
+		$this->fields = 'title, text';
+		$this->binding_fields_for_create = ':title, :text';
+		$this->binding_fields_for_update = 'title = :title, text = :text';
 
 		$this->rules_validation = [
-            'name' => 'Имя|empty|length_string',
-            'description' => 'Описание|empty|length_string',
-            'price' => 'Цена|empty|is_integer|length_integer',
+            'title' => 'Заголовок|empty|length_string',
+            'text' => 'Текст|empty|length_string',
         ];
 	}
 }

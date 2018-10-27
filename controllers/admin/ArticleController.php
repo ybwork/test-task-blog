@@ -2,12 +2,9 @@
 
 namespace controllers\admin;
 
-use \components\Validator;
-use \components\Paginator;
-use \components\Helper;
-use \implementing\validators\YBValidator;
-use \implementing\paginators\YBPaginator;
-use \implementing\helpers\YBHelper;
+use \components\ValidatorImp;
+use \components\PaginatorImp;
+use \components\HelperImp;
 use \models\admin\ArticleImp;
 
 class ArticleController
@@ -16,32 +13,18 @@ class ArticleController
     public $helper;
     public $validator;
     public $paginator;
-    public $path_to_view;
-    public $fields;
 
-	/**
-	 * Sets validator, helper, paginator, model, access
-	 */
 	public function __construct()
 	{
-        $this->validator = new Validator();
-        $this->validator->set_validator(new YBValidator);
+        $this->validator = new ValidatorImp();
         $this->validator->check_auth();
 
-        $this->helper = new Helper();
-        $this->helper->set_helper(new YBHelper());
-
-        $this->paginator = new Paginator();
-        $this->paginator->set_paginator(new YBPaginator());
+        $this->helper = new HelperImp();
+        $this->paginator = new PaginatorImp();
 
 		$this->model = new ArticleImp();
 	}
 
-    /**
-     * Shows all lots
-     *
-     * @return html view
-     */
     public function index()
     {
         // var_dump($this->model); die();
@@ -63,54 +46,36 @@ class ArticleController
 
         $lots = $this->model->get_all();
 
-        require_once(ROOT . '/views/admin/lot/index.php');
+        require_once(ROOT . '/views/admin/article/index.php');
         return true;
     }
 
-    /**
-     * Collects data for create lot
-     *
-     * @return result in json and/or http headers with status code
-     */
     public function create()
     {
         $this->validator->check_request($_POST);
 
-        $data['name'] = (string) $_POST['name'];
-        $data['description'] = (string) $_POST['description'];
-        $data['price'] = (int) $_POST['price'];
+        $data['title'] = (string) $_POST['title'];
+        $data['text'] = (string) $_POST['text'];
         
         $this->model->create($data);
     }
 
-    /**
-     * Collects data for update lot
-     *
-     * @return result in json and/or http headers with status code
-     */
     public function update()
     {
         $this->validator->check_request($_POST);
 
         $data['id'] = (int) $_POST['id'];
-        $data['name'] = (string) $_POST['name'];
-        $data['description'] = (string) $_POST['description'];
-        $data['price'] = (int) $_POST['price'];
+        $data['title'] = (string) $_POST['title'];
+        $data['text'] = (string) $_POST['text'];
 
         $this->model->update($data);
     }
 
-    /**
-     * Collects data for delete lot
-     *
-     * @return result in json and/or http headers with status code
-     */
     public function delete()
     {
         $this->validator->check_request($_POST);
         
         $id = (int) $_POST['id'];
-
         $this->model->delete($id);
     }
 }

@@ -35,7 +35,7 @@ class HomeController
         // $auctions = $this->model->get_all_by_offset_limit($offset, $limit);
         
 		if (isset($_SESSION['login'])) {
-			$view = '/views/site/home/index.php';
+			$view = '/views/site/home/home.php';
 		} else {
 			$view = '/views/auth/login.php';
 		}
