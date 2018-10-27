@@ -2,16 +2,15 @@
 
 namespace controllers\admin;
 
+use \components\Validator;
 use \components\Paginator;
 use \components\Helper;
-use \components\Validator;
-use \implementing\helpers\YBHelper;
-use \implementing\paginators\YBPaginator;
 use \implementing\validators\YBValidator;
-use \models\admin\User;
-use \implementing\models\admin\MySQLUserModel;
+use \implementing\paginators\YBPaginator;
+use \implementing\helpers\YBHelper;
+use \models\admin\ArticleImp;
 
-class UserController
+class ArticleController
 {
     public $model;
     public $helper;
@@ -20,11 +19,11 @@ class UserController
     public $path_to_view;
     public $fields;
 
-    /**
-     * Sets validator, access, helper, model
-     */
-    public function __construct()
-    {
+	/**
+	 * Sets validator, helper, paginator, model, access
+	 */
+	public function __construct()
+	{
         $this->validator = new Validator();
         $this->validator->set_validator(new YBValidator);
         $this->validator->check_auth();
@@ -34,22 +33,22 @@ class UserController
 
         $this->paginator = new Paginator();
         $this->paginator->set_paginator(new YBPaginator());
-        
-        $this->model = new User();
-        $this->model->set_model(new MySQLUserModel());
-    }
+
+		$this->model = new ArticleImp();
+	}
 
     /**
-     * Shows all users
+     * Shows all lots
      *
      * @return html view
      */
     public function index()
     {
+        // var_dump($this->model); die();
         /*
             Заменить обычный вывод, когда появится js
 
-            $limit = 20;
+            $limit = 2;
             $page = $this->helper->get_page();
             $offset = ($page - 1) * $limit;
 
@@ -57,19 +56,19 @@ class UserController
             $total = $count[0]['COUNT(*)'];
             $index = '?page=';
 
-            $users = $this->model->get_all_by_offset_limit($offset, $limit);
+            $lots = $this->model->get_all_by_offset_limit($offset, $limit);
 
             $this->paginator->set_params($total, $page, $limit, $index);
         */
 
-        $users = $this->model->get_all();
+        $lots = $this->model->get_all();
 
-        require_once(ROOT . '/views/admin/user/index.php');
+        require_once(ROOT . '/views/admin/lot/index.php');
         return true;
     }
 
     /**
-     * Collects data for create user
+     * Collects data for create lot
      *
      * @return result in json and/or http headers with status code
      */
@@ -77,20 +76,15 @@ class UserController
     {
         $this->validator->check_request($_POST);
 
-        $data['login'] = $_POST['login'];
-        $data['role'] = 2;
-
-        if ($_POST['password']) {
-            $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        } else {
-            $data['password'] = $_POST['password'];
-        }
-
+        $data['name'] = (string) $_POST['name'];
+        $data['description'] = (string) $_POST['description'];
+        $data['price'] = (int) $_POST['price'];
+        
         $this->model->create($data);
     }
 
     /**
-     * Collects data for update user
+     * Collects data for update lot
      *
      * @return result in json and/or http headers with status code
      */
@@ -99,15 +93,15 @@ class UserController
         $this->validator->check_request($_POST);
 
         $data['id'] = (int) $_POST['id'];
-        $data['login'] = (string) $_POST['login'];
-        $data['password'] = (string) $_POST['password'];
-        $data['role'] = 2;
+        $data['name'] = (string) $_POST['name'];
+        $data['description'] = (string) $_POST['description'];
+        $data['price'] = (int) $_POST['price'];
 
         $this->model->update($data);
     }
 
     /**
-     * Collects data for delete user
+     * Collects data for delete lot
      *
      * @return result in json and/or http headers with status code
      */
@@ -118,17 +112,5 @@ class UserController
         $id = (int) $_POST['id'];
 
         $this->model->delete($id);
-    }
-
-    /**
-     * Logout user from system
-     *
-     * @return status code
-     */
-    public function logout() {
-        unset($_SESSION['id']);
-        unset($_SESSION['login']);
-        unset($_SESSION['role']);
-        header("Location: /login");
     }
 }

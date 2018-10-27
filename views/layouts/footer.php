@@ -9,20 +9,9 @@
 			});
 		</script>
 
-		<!-- Main -->
-		<?php if ($_SERVER['REQUEST_URI'] == '/login'): ?>
-			<script type="text/javascript" src="/public/js/login.js"></script>
-		<?php else: ?>
-			<!-- Calendar -->
-			<script src="/public/plugins/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
-			<script src="/public/plugins/accounting/accounting.min.js"></script>
-			<script type="text/javascript" src="/public/js/app.js?<?php print filemtime(ROOT . '/public/js/app.js'); ?>"></script>
-			
-	        <!-- Socket.io -->
-	        <script type="text/javascript" src="/libs/socket.io-client/dist/socket.io.js"></script>
-
-	        <!-- Socket client -->
-	        <script type="text/javascript" src="/public/js/socket-client.js?<?php print filemtime(ROOT . '/public/js/socket-client.js'); ?>"></script>
-		<?php endif; ?>
+		<!-- Calendar -->
+		<script src="/public/plugins/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+		<script src="/public/plugins/accounting/accounting.min.js"></script>
+		<script type="text/javascript" src="/public/js/app.js?<?php print filemtime(ROOT . '/public/js/app.js'); ?>"></script>
 	</body>
 </html>

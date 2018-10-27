@@ -2,8 +2,7 @@
 	<div class="grid-body">
 		<div class="login-block" >
 			<div class="login-block-width">
-				<img class="login-block-logo" src="/public/image/logo/logo_inpk_trading.svg">
-				<form class="auth" action="/login/user" method="POST">
+				<form class="auth" action="/login" method="POST">
 					<p class="error" style="display: none"></p>
 					<div class="login-field-group">
 		                <div class="login-notice"></div>

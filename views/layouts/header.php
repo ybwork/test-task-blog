@@ -20,52 +20,17 @@
     <script type="text/javascript" src="/public/plugins/datetimepicker/jquery.js"></script>
   </head>
     <header class="header">
-      <div class="header-logo">
-        <a href="/"><img src="/public/image/logo/logo_inpk_trading.svg"></a>
-      </div>
-      <div class="header-nav header-nav__mobile">
-        <?php if ($_SESSION): ?>
-          <?php if ($_SESSION['role'] == 1): ?>
-            <a href="/admin/lots">Лоты</a>
-            <a href="/admin/auctions">Аукционы</a>
-            <a href="/admin/users">Пользователи</a>
-          <?php endif; ?>
-            <a href="/archive">Архив</a>
-        <?php endif; ?>    
-      </div>
       <?php if ($_SESSION): ?>
+        <div class="header-logo">
+          <a href="/"><img src="">Home</a>
+        </div>
+        <div class="header-nav header-nav__mobile">   
+        </div>
         <div class="header-user header-user--menu">
           <div class="user-name"><?php print $_SESSION['login']; ?></div>
-          <div class="change-password">
-            <img src="/public/image/icon/down-arrow.svg" />
+          <div class="header-logout">
+            <a href="/logout">Sing out</a>
           </div>
-          <form id="changePassword" class="change-password-form common-ajax-form" action="/user/update" method="POST">
-            <div class="password-error"></div>
-            <div class="password-success"></div>
-            <div class="change-password-input">
-              <input type="hidden" name="id" value="<?php print $_SESSION['login']; ?>">
-              <label>Старый пароль</label>
-              <div class="change-password-form-input">
-                <input type="password" name="old_password">
-                <span class="eye-icon"></span>
-              </div>
-            </div>
-            <div class="change-password-input">
-              <label>Новый пароль</label>
-              <div class="change-password-form-input">
-                <input type="password" name="new_password">
-                <span class="eye-icon"></span>
-              </div>
-            </div>
-            <button type="submit" class="button button-color button-round button-change-password">Изменить пароль</button>
-          </form>
         </div>
-        <div class="header-logout">
-          <a href="/logout"><img src="/public/image/icon/site/exit.svg"></a>
-        </div>
-      <?php else: ?>
-        <div class="header-login">
-          <a href="/login"><img src="/public/image/icon/site/login.svg"></a>
-        </div>  
       <?php endif; ?>
     </header>

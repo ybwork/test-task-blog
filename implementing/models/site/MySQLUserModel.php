@@ -40,4 +40,26 @@ class MySQLUserModel extends YBModel implements IUserModel
             'password' => 'Пароль|empty|length_string',
         ];
 	}
+
+    public function check_exists(array $data)
+    {
+        $data = $this->validator->validate($data, [
+            'login' => 'Логин|empty|length_string',
+        ]);
+
+        $db = $this->db_connection->get_connection();
+
+        $sql = 'SELECT id, login, password, role FROM users WHERE login = :login';
+
+        $query = $db->prepare($sql);
+
+        $query->bindValue(':login', $data['login']);
+
+		if ($query->execute()) {
+			return $query->fetch(\PDO::FETCH_ASSOC);
+		} else {
+			http_response_code(500);
+			$this->validator->check_response('ajax');
+		}
+    }
 }

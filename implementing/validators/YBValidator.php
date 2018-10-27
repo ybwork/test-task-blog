@@ -196,31 +196,6 @@ class YBValidator implements IValidator
 	}
 
 	/**
-	 * Check user access
-	 *
-	 * @param $roles_groups - roles and groups that have access
-	 * @return redirect on home page or true
-	 */
-    public function check_access(array $roles)
-    {
-    	$roles_values = [
-    		'admin' => 1,
-    		'user' => 2,
-    	];
-
-		$arr_compare_roles = [];
-    	foreach ($roles as $key => $role) {
-    		$arr_compare_roles[$key] = $roles_values[$role];
-    	}
-
-		if (in_array($_SESSION['role'], $arr_compare_roles)) {
-			return true;
-		} else {
-			header('Location: /');
-		}
-    }
-
-	/**
 	 * Check user on auth 
 	 *
 	 * @return redirect on login page or true
